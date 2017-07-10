@@ -1,0 +1,9 @@
+export const getFilter = (state) => state.filter
+export const getCurrentPage = (state) => state.currentPage
+export const getPageSize = (state) => state.pageSize
+export const getSortColumn = (state) => state.sortColumn
+export const getSortAscending = (state) => state.sortAscending
+export const getResults = (state) => state.results
+export const getResultCount = (state) => state.resultCount
+export const getMaxPage = (state) => state.maxPage
+export const getIsLoading = (state) => state.isLoading

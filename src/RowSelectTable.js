@@ -5,7 +5,7 @@ import { CircularProgress } from 'material-ui'
 import { ASCENDING, DESCENDING } from './getActions'
 import Footer from './Footer'
 import { headerCell, sortableColumnHeaderCell, selectedRow, row, cell, table, circularProgress } from './RowSelectTable.css'
-console.log('reacttt', React)
+
 export const RowSelectTableSortIcon = ({ direction }) =>
   <span className={cn('fa', `fa-sort-alpha-${direction}`)} style={{ paddingLeft: '.5em' }} />
 
