@@ -1,0 +1,74 @@
+.pageButton {
+  border: 0;
+  background-color: transparent;
+  font-size: 12px;
+  min-width: 25px;
+  height: 40px;
+  padding: 5px;
+}
+
+.pageButton:hover {
+  cursor: pointer;
+}
+
+.pageButton:focus {
+  outline: 0;
+ }
+
+.currentPageSelected {
+  color: white;
+  background-color: #0D5DB8;
+}
+
+.pageStepButton {
+  border: 0;
+  background-color: transparent;
+  font-size: 12px;
+  padding: 5px;
+}
+
+.pageStepButton:hover {
+  cursor: pointer;
+}
+
+.pageStepButton:focus {
+   outline: 0;
+}
+
+.arrowIcon {
+  padding: 0 10px;
+}
+
+.mainPagerContent {
+  width: 100%;
+  text-align: center;
+  background-color: #ededed;
+}
+
+.mainPagerContent:hover {
+  cursor: default;
+ }
+
+.showResults {
+  display: inline-block;
+  width: 65%;
+  text-align: left;
+  height: 40px;
+  font-size: 14px;
+}
+
+.pagerContent {
+  display: inline-block;
+  width: 35%;
+  text-align: right;
+}
+
+.dropDown {
+font-size: 12px;
+}
+
+.textField {
+  height: 40px;
+  border: 0;
+  padding: 5px 5px 5px 0px;
+}

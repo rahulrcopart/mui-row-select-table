@@ -1,0 +1,44 @@
+.table {
+  width: 100%;
+
+  font-size: 12px;
+}
+
+.headerCell {
+  background-color: #0D5DB8;
+
+  padding: 16px 5px;
+
+  font-weight: bold;
+  color: white;
+}
+
+.sortableColumnHeaderCell {
+  cursor: pointer;
+}
+
+.cell {
+  border-bottom: 1px solid #DDD;
+  border-top-color: #DDD;
+  padding: 5px;
+}
+
+.row {
+  transition: background-color .3s;
+  cursor: pointer;
+}
+
+.selectedRow {
+  background-color: #D2D7D3;
+  transition: background-color .1s;
+}
+
+.circularProgress {
+  margin: auto;
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -25px;
+  top: 32%;
+  bottom: 68;
+}
