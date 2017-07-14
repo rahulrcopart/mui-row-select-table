@@ -1,6 +1,6 @@
 {
   "name": "mui-row-select-table",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Grid component with row-selection functionality",
   "main": "index.js",
   "author": "justinsilvestre@gmail.com",
