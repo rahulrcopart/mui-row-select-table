@@ -26,10 +26,15 @@ module.exports = {
     extensions: ['.js'],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true,
-      __DEVTOOLS__: true,
+      __DEVELOPMENT__: false,
+      __DEVTOOLS__: false,
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+        'BABEL_ENV': JSON.stringify('production')
+      }
     }),
     // new WebpackShellPlugin({
     //   onBuildEnd: ['npm run docs']

@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import cn from 'classnames'
-import { TextField } from 'material-ui'
+import { TextField, FlatButton, Menu, MenuItem, Popover } from 'material-ui'
 import range from './range'
 import styles from './Footer.css'
-import mdlComponent from './mdlComponent'
 
 const KEY_G = 71
 
@@ -33,6 +33,7 @@ class RowSelectTableFooter extends Component {
     this.state = {
       resultsPerPage: props && props.resultsPerPage ? props.resultsPerPage : 20,
       inputValue: '',
+      popover: false,
     }
   }
 
@@ -51,18 +52,35 @@ class RowSelectTableFooter extends Component {
     }
   }
 
+  handleTouchTap = (event) => {
+    event.preventDefault()
+    this.setState({
+      popover: true,
+      anchorEl: event.currentTarget,
+    })
+  }
+
+  handleRequestClose = () => this.setState({ popover: false })
+
+  handleChange = (event, index, value) => {
+    this.setState({ popover: false })
+    this.pageChange(0, this.props.pageSizeOptions[value])
+  }
+
   pageChange = (page, resultsPerPage) => {
-    const { maxPage } = this.props
-    if (page < maxPage) {
-      this.props.setPage({ page, resultsPerPage })
-      const maybeNewResultsPerPage = resultsPerPage ? { resultsPerPage } : {}
-      this.setState({ ...maybeNewResultsPerPage, inputValue: '' })
-    }
+    this.props.setPage({ page, resultsPerPage })
+    const maybeNewResultsPerPage = resultsPerPage ? { resultsPerPage } : {}
+    this.setState({ ...maybeNewResultsPerPage, inputValue: '' })
   }
 
   updateInputValue = (e) => {
+    const input = e.target.value.replace(/\D|^0/g, '')
+    if (!input.length) {
+      this.setState({ inputValue: '' })
+      return
+    }
     this.setState({
-      inputValue: e.target.value.replace(/\D|^0/g, ''),
+      inputValue: Math.max(1, Math.min(input, this.props.maxPage)),
     })
   }
 
@@ -70,12 +88,13 @@ class RowSelectTableFooter extends Component {
     if (e.key === 'Enter') {
       e.nativeEvent.stopPropagation()
       if (this.state.inputValue === '') return
-      this.pageChange(this.state.inputValue - 1)
+      // this.pageChange(this.state.inputValue - 1)
+      this.pageChange(Math.min(this.state.inputValue, this.props.maxPage) - 1)
     }
   }
 
   render() {
-    const { currentPage, maxPage, pageSizeOptions } = this.props
+    const { currentPage, maxPage, pageSizeOptions, resultCount } = this.props
     const { inputValue } = this.state
 
     const previousButton = currentPage > 0
@@ -106,23 +125,27 @@ class RowSelectTableFooter extends Component {
       <div className={styles.mainPagerContent}>
         <div className={styles.showResults}>
           <span style={{ marginLeft: '5px', marginRight: '20px' }}>
-            {'Show'}
-            <button
-              id="demo-menu-top-left"
-              className="mdl-button mdl-js-button mdl-textfield__input"
-              style={{ width: '12px', fontSize: '14px', color: 'white', backgroundColor: '#0D5DB8', display: 'inline-block', paddingTop: '1px', paddingLeft: '22px', marginLeft: '5px', marginRight: '5px' }}>
-              {this.state.resultsPerPage}
-            </button>
-            <ul className="mdl-menu mdl-menu--top-left mdl-js-menu mdl-js-ripple-effect" htmlFor="demo-menu-top-left">
-              {pageSizeOptions.map((pageSizeOption, i) =>
-                <li
-                  key={i}
-                  className={cn('mdl-menu__item', { 'mdl-menu__item--full-bleed-divider': i === pageSizeOptions.length - 1 })}
-                  onClick={() => this.pageChange(0, pageSizeOption)}
-                >{pageSizeOption}</li>
-              )}
-            </ul>
-            {'Results'}
+            {'Showing  '}
+            <FlatButton
+              onTouchTap={this.handleTouchTap}
+              label={this.state.resultsPerPage}
+              labelStyle={{ color: 'white' }}
+              backgroundColor="#1D5AB9"
+            />
+            <Popover
+              open={this.state.popover}
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+              onRequestClose={this.handleRequestClose}
+            >
+              <Menu
+                onItemTouchTap={this.handleChange}
+              >
+                {pageSizeOptions.map((pageSizeOption, i) => <MenuItem value={i} key={i} primaryText={pageSizeOption} />)}
+              </Menu>
+            </Popover>
+            {`  Results${resultCount ? ` of ${resultCount}` : ''}`}
           </span>
           <span>
             {'Go To Page'}
@@ -130,24 +153,24 @@ class RowSelectTableFooter extends Component {
               ref={(node) => { this.pageField = node }}
               id="text-field-controlled"
               className={styles.textField}
-              type="number"
-              style={{ width: '56px', marginLeft: '5px', color: '#fff' }}
               value={inputValue}
               onChange={this.updateInputValue}
               onKeyUp={this.handleKeyUp}
-              underlineStyle={{ width: '50px', backgroundColor: '#0D5DB8' }}
-              inputStyle={{ backgroundColor: '#fff', height: '36px' }}
-              underlineFocusStyle={{ borderColor: '#01579b' }}
+              type="number"
+              hintText="Go to Page"
+              hintStyle={{ fontSize: '10px' }}
+              style={{ marginLeft: '5px', marginRight: '5px', width: '60px' }}
+              underlineFocusStyle={{ width: '50px', borderColor: '#01579b' }}
+              min={1}
+              max={maxPage}
             />
-            <button
-              className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
-              style={{ backgroundColor: '#0D5DB8' }}
+            <FlatButton
+              label="Go"
+              labelStyle={{ color: 'white' }}
+              backgroundColor="#1D5AB9"
               type="submit"
-              onClick={() => inputValue !== '' && this.pageChange(inputValue - 1)}
-              disabled={inputValue > maxPage}
-            >
-            Go
-            </button>
+              onClick={() => inputValue !== '' && this.pageChange(Math.min(inputValue, maxPage) - 1)}
+            />
           </span>
         </div>
         <div className={styles.pagerContent}>
@@ -170,4 +193,4 @@ RowSelectTableFooter.propTypes = {
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number).isRequired,
 }
 
-export default mdlComponent(RowSelectTableFooter)
+export default RowSelectTableFooter
