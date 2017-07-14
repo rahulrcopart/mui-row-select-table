@@ -2,7 +2,7 @@
   border: 0;
   background-color: transparent;
   font-size: 12px;
-  min-width: 25px;
+  min-width: 30px;
   height: 40px;
   padding: 5px;
 }
@@ -16,15 +16,20 @@
  }
 
 .currentPageSelected {
-  color: white;
-  background-color: #0D5DB8;
+  background: #1D5AB9;
+  min-width: 30px;
+  width: 30px;
+  height: 30px;
+  color: snow;
+  font-weight: bold;
+  composes: copartBlueBackground from 'components/styles/colors.css';
 }
 
 .pageStepButton {
   border: 0;
   background-color: transparent;
   font-size: 12px;
-  padding: 5px;
+  padding: 12px;
 }
 
 .pageStepButton:hover {
@@ -53,11 +58,12 @@
   display: inline-block;
   width: 65%;
   text-align: left;
-  height: 40px;
-  font-size: 14px;
+   font-size: 12px; 
 }
 
 .pagerContent {
+  margin-left: auto;
+  padding: 10px;
   display: inline-block;
   width: 35%;
   text-align: right;
@@ -68,7 +74,5 @@ font-size: 12px;
 }
 
 .textField {
-  height: 40px;
   border: 0;
-  padding: 5px 5px 5px 0px;
 }
