@@ -17,12 +17,12 @@ export const RowSelectTableHeader = ({ columnMetadata, sortColumnName, sortDirec
           <input checked={isAllRowsSelected} onClick={(e) => onSelectAllRows(e)} type="checkbox" />
         </th>) : null}
 
-      {columnMetadata.map(({ headerCellContent, name, sortable }) =>
-        <th key={name} className={cn(headerCell, { [sortableColumnHeaderCell]: sortable })} onClick={() => sortable && changeSort(name)}>
-          {(headerCellContent || headerCellContent === '') ? headerCellContent : name}
-          {sortable && sortColumnName === name && <RowSelectTableSortIcon direction={sortDirection} />}
-        </th>
-      )}
+        {columnMetadata.map(({ headerCellContent, name, sortable }) =>
+          <th key={name} name={name} className={cn(headerCell, { [sortableColumnHeaderCell]: sortable })} onClick={() => sortable && changeSort(name)}>
+            {(headerCellContent || headerCellContent === '') ? headerCellContent : name}
+            { sortable && sortColumnName === name && <RowSelectTableSortIcon direction={sortDirection} />}
+          </th>
+        )}
     </tr>
   </thead>
 
@@ -46,17 +46,19 @@ export const RowSelectTableRow = ({
       onMouseEnter={() => onMouseEnter(id)}
       onClick={(e) => onClick(e, rowData)}
       className={cn({ [selectedRow]: selectedLotId === id }, className, row)}
+      name={id}
     >
       {rowSelectionEnabled ? (
         <td className={cn(cell)}>
           <input checked={isRowSelected(rowData)} onClick={(e) => onSelectRow(e, rowData)} type="checkbox" />
         </td>) : null}
 
-      {columnMetadata.map(({ name: columnName, display = (x) => x, tdClassName }, i) =>
-        <td key={i} onMouseDown={() => onClickHold(id, i)} className={cn(cell, tdClassName)}>
-          {display(rowData[columnName], rowData)}
-        </td>
-      )}
+        {columnMetadata.map(({ name, display = (x) => x, tdClassName, customComponent: CustomComponent }, i) => (
+          CustomComponent ? <CustomComponent name={rowData.name} id={id} /> :
+          <td onMouseDown={() => onClickHold(id, i)} className={cn(cell, tdClassName)}>
+            {display(rowData[name], rowData)}
+          </td>
+        ))}
     </tr>
   )
 }
