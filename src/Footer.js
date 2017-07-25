@@ -94,7 +94,7 @@ class RowSelectTableFooter extends Component {
   }
 
   render() {
-    const { currentPage, maxPage, pageSizeOptions, resultCount } = this.props
+    const { currentPage, maxPage, pageSizeOptions, resultCount, footerLabels } = this.props
     const { inputValue } = this.state
 
     const previousButton = currentPage > 0
@@ -125,7 +125,7 @@ class RowSelectTableFooter extends Component {
       <div className={styles.mainPagerContent}>
         <div className={styles.showResults}>
           <span style={{ marginLeft: '5px', marginRight: '20px' }}>
-            {'Showing  '}
+            {`${footerLabels.showing}`}
             <FlatButton
               onTouchTap={this.handleTouchTap}
               label={this.state.resultsPerPage}
@@ -145,10 +145,10 @@ class RowSelectTableFooter extends Component {
                 {pageSizeOptions.map((pageSizeOption, i) => <MenuItem value={i} key={i} primaryText={pageSizeOption} />)}
               </Menu>
             </Popover>
-            {`  Results${resultCount ? ` of ${resultCount}` : ''}`}
+            {`  ${footerLabels.results}${resultCount ? ` ${footerLabels.of} ${resultCount}` : ''}`}
           </span>
           <span>
-            {'Go To Page'}
+            {`${footerLabels.goToPage}`}
             <TextField
               ref={(node) => { this.pageField = node }}
               id="text-field-controlled"
@@ -165,7 +165,7 @@ class RowSelectTableFooter extends Component {
               max={maxPage}
             />
             <FlatButton
-              label="Go"
+              label={`${footerLabels.go}`}
               labelStyle={{ color: 'white' }}
               backgroundColor="#1D5AB9"
               type="submit"
@@ -191,6 +191,7 @@ RowSelectTableFooter.propTypes = {
   setPage: PropTypes.func,
   resultsPerPage: PropTypes.number,
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number).isRequired,
+  footerLabels: PropTypes.objectOf(PropTypes.any),
 }
 
 export default RowSelectTableFooter
