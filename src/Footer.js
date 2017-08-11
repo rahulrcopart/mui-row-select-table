@@ -96,7 +96,7 @@ class RowSelectTableFooter extends Component {
   render() {
     const { currentPage, maxPage, pageSizeOptions, resultCount, footerLabels } = this.props
     const { inputValue } = this.state
-
+    const resultCount = this.props.resultCount ? ` ${footerLabels.of} ${resultCount}` : ''
     const previousButton = currentPage > 0
       && <PreviousPageButton onClick={() => this.pageChange(currentPage - 1)} />
     const nextButton = currentPage !== (maxPage - 1)
@@ -145,7 +145,7 @@ class RowSelectTableFooter extends Component {
                 {pageSizeOptions.map((pageSizeOption, i) => <MenuItem value={i} key={i} primaryText={pageSizeOption} />)}
               </Menu>
             </Popover>
-            {`  ${footerLabels.results}${resultCount ? ` ${footerLabels.of} ${resultCount}` : ''}`}
+            {`${footerLabels.results}${resultCount}`}
           </span>
           <span>
             {`${footerLabels.goToPage}`}
@@ -201,7 +201,13 @@ RowSelectTableFooter.propTypes = {
   setPage: PropTypes.func,
   resultsPerPage: PropTypes.number,
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number).isRequired,
-  footerLabels: PropTypes.objectOf(PropTypes.any),
+  footerLabels: PropTypes.shape({
+    showing: PropTypes.string,
+    results: PropTypes.string,
+    go: PropTypes.string,
+    of: PropTypes.string,
+    goToPage: PropTypes.string,
+  })
 }
 
 export default RowSelectTableFooter
