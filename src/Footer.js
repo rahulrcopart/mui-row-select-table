@@ -24,6 +24,13 @@ class RowSelectTableFooter extends Component {
     return {
       'maxPage': 0,
       'currentPage': 0,
+      'footerLabels': {
+        showing: 'Showing',
+        results: 'Results',
+        go: 'Go',
+        of: 'Of',
+        goToPage: 'Go To Page',
+      },
     }
   }
 
@@ -182,16 +189,6 @@ class RowSelectTableFooter extends Component {
         </div>
       </div>
     )
-  }
-}
-
-RowSelectTableFooter.defaultProps = {
-  footerLabels: {
-    showing: 'Showing',
-    results: 'Results',
-    go: 'Go',
-    of: 'Of',
-    goToPage: 'Go To Page',
   }
 }
 
