@@ -94,9 +94,9 @@ class RowSelectTableFooter extends Component {
   }
 
   render() {
-    const { currentPage, maxPage, pageSizeOptions, resultCount } = this.props
+    const { currentPage, maxPage, pageSizeOptions, resultCount, footerLabels } = this.props
     const { inputValue } = this.state
-
+    const resultCount = this.props.resultCount ? ` ${footerLabels.of} ${resultCount}` : ''
     const previousButton = currentPage > 0
       && <PreviousPageButton onClick={() => this.pageChange(currentPage - 1)} />
     const nextButton = currentPage !== (maxPage - 1)
@@ -125,7 +125,7 @@ class RowSelectTableFooter extends Component {
       <div className={styles.mainPagerContent}>
         <div className={styles.showResults}>
           <span style={{ marginLeft: '5px', marginRight: '20px' }}>
-            {'Showing  '}
+            {`${footerLabels.showing}`}
             <FlatButton
               onTouchTap={this.handleTouchTap}
               label={this.state.resultsPerPage}
@@ -145,10 +145,10 @@ class RowSelectTableFooter extends Component {
                 {pageSizeOptions.map((pageSizeOption, i) => <MenuItem value={i} key={i} primaryText={pageSizeOption} />)}
               </Menu>
             </Popover>
-            {`  Results${resultCount ? ` of ${resultCount}` : ''}`}
+            {`${footerLabels.results}${resultCount}`}
           </span>
           <span>
-            {'Go To Page'}
+            {`${footerLabels.goToPage}`}
             <TextField
               ref={(node) => { this.pageField = node }}
               id="text-field-controlled"
@@ -165,7 +165,7 @@ class RowSelectTableFooter extends Component {
               max={maxPage}
             />
             <FlatButton
-              label="Go"
+              label={`${footerLabels.go}`}
               labelStyle={{ color: 'white' }}
               backgroundColor="#1D5AB9"
               type="submit"
@@ -185,12 +185,29 @@ class RowSelectTableFooter extends Component {
   }
 }
 
+RowSelectTableFooter.defaultProps = {
+  footerLabels: {
+    showing: 'Showing',
+    results: 'Results',
+    go: 'Go',
+    of: 'Of',
+    goToPage: 'Go To Page',
+  }
+}
+
 RowSelectTableFooter.propTypes = {
   maxPage: PropTypes.number,
   currentPage: PropTypes.number,
   setPage: PropTypes.func,
   resultsPerPage: PropTypes.number,
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number).isRequired,
+  footerLabels: PropTypes.shape({
+    showing: PropTypes.string,
+    results: PropTypes.string,
+    go: PropTypes.string,
+    of: PropTypes.string,
+    goToPage: PropTypes.string,
+  })
 }
 
 export default RowSelectTableFooter

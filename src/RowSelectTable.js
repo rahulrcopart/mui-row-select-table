@@ -218,9 +218,9 @@ class RowSelectTable extends Component {
       results, maxPage, setPage, isLoading, pageSize, currentPage, pageSizeOptions,
       getRowId, columnMetadata, sortColumn, sortAscending, noDataMessage: NoDataMessage,
       rowSelectionEnabled, onSelectAllRows, isAllRowsSelected, onSelectRow, isRowSelected,
-      showFooter,
+      showFooter, footerLabels,
     } = this.props
-    const pagerProps = { maxPage, setPage, resultsPerPage: pageSize, currentPage, pageSizeOptions }
+    const pagerProps = { maxPage, setPage, resultsPerPage: pageSize, currentPage, pageSizeOptions, footerLabels }
     const searchReturnsResults = !isLoading && results && results.length !== 0 && showFooter
     // <Griddle {...this.griddleProps()} ref={(g) => this._griddle = window._griddle = g} />
 
