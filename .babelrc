@@ -9,7 +9,7 @@
             "imports": ["react"],
             "locals": ["module"]
           }]
-        }],
+        }]
       ]
     }
   },
