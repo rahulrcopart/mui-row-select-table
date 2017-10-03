@@ -164,7 +164,7 @@ class RowSelectTableFooter extends Component {
               onChange={this.updateInputValue}
               onKeyUp={this.handleKeyUp}
               type="number"
-              hintText="Go to Page"
+              hintText={`${footerLabels.goToPage}`}
               hintStyle={{ fontSize: '10px' }}
               style={{ marginLeft: '5px', marginRight: '5px', width: '60px' }}
               underlineFocusStyle={{ width: '50px', borderColor: '#01579b' }}
