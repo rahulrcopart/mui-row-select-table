@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import * as PropTypes from 'prop-types'
 import cn from 'classnames'
@@ -38,10 +39,13 @@ export const RowSelectTableRow = ({
   onSelectRow = null,
   isRowSelected = null,
   rowSelectionEnabled = null,
+  selectRowStyle = (rowData) => { },
+  selectableCellStyle = (rowData) => { }
 }) => {
   const id = getRowId(rowData)
   return (
     <tr
+      style={Object.assign({}, selectRowStyle(rowData))}
       id={id}
       onMouseEnter={() => onMouseEnter(id)}
       onClick={(e) => onClick(e, rowData)}
@@ -49,13 +53,13 @@ export const RowSelectTableRow = ({
       name={id}
     >
       {rowSelectionEnabled ? (
-        <td className={cn(cell)}>
+        <td className={cn(cell, selectableCellStyle(rowData))}>
           <input checked={isRowSelected(rowData)} onClick={(e) => onSelectRow(e, rowData)} type="checkbox" />
         </td>) : null}
 
         {columnMetadata.map(({ name, display = (x) => x, tdClassName, customComponent: CustomComponent }, i) => (
           CustomComponent ? <CustomComponent name={rowData.name} id={id} /> :
-          <td onMouseDown={() => onClickHold(id, i)} className={cn(cell, tdClassName)}>
+          <td onMouseDown={() => onClickHold(id, i)} className={cn(cell, tdClassName, selectableCellStyle(rowData))}>
             {display(rowData[name], rowData)}
           </td>
         ))}
@@ -218,7 +222,7 @@ class RowSelectTable extends Component {
       results, maxPage, setPage, isLoading, pageSize, currentPage, pageSizeOptions,
       getRowId, columnMetadata, sortColumn, sortAscending, noDataMessage: NoDataMessage,
       rowSelectionEnabled, onSelectAllRows, isAllRowsSelected, onSelectRow, isRowSelected,
-      showFooter, footerLabels,
+      showFooter, footerLabels, selectRowStyle, selectableCellStyle
     } = this.props
     const pagerProps = { maxPage, setPage, resultsPerPage: pageSize, currentPage, pageSizeOptions, footerLabels }
     const searchReturnsResults = !isLoading && results && results.length !== 0 && showFooter
@@ -239,6 +243,8 @@ class RowSelectTable extends Component {
           rowSelectionEnabled={rowSelectionEnabled}
           onSelectRow={onSelectRow}
           isRowSelected={isRowSelected}
+          selectRowStyle={selectRowStyle}
+          selectableCellStyle={selectableCellStyle}
         />
       )
 
@@ -278,6 +284,8 @@ RowSelectTable.propTypes = {
   currentPage: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   sortColumn: PropTypes.string.isRequired,
+  selectRowStyle: PropTypes.func,
+  selectableCellStyle: PropTypes.func,
   // sortDirection: PropTypes.oneOf([DESCENDING, ASCENDING]).isRequired,
   sortAscending: PropTypes.bool.isRequired,
   getRowId: PropTypes.func.isRequired,
@@ -289,7 +297,7 @@ RowSelectTable.propTypes = {
   isRowSelected: PropTypes.bool,
   onSelectRow: PropTypes.func,
   listenKeyboard: PropTypes.bool,
-  showFooter: PropTypes.bool,
+  showFooter: PropTypes.bool
 }
 
 export default RowSelectTable
