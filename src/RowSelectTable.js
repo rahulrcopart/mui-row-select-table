@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import * as PropTypes from 'prop-types'
 import cn from 'classnames'
@@ -297,7 +296,7 @@ RowSelectTable.propTypes = {
   isRowSelected: PropTypes.bool,
   onSelectRow: PropTypes.func,
   listenKeyboard: PropTypes.bool,
-  showFooter: PropTypes.bool
+  showFooter: PropTypes.bool,
 }
 
 export default RowSelectTable
