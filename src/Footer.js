@@ -132,7 +132,7 @@ class RowSelectTableFooter extends Component {
       <div className={styles.mainPagerContent}>
         <div className={styles.showResults}>
           <span style={{ marginLeft: '5px', marginRight: '20px' }}>
-            {`${footerLabels.showing}`}
+            <span className={styles.showing}> {`${footerLabels.showing}`} </span>
             <FlatButton
               onTouchTap={this.handleTouchTap}
               label={this.state.resultsPerPage}
@@ -152,7 +152,7 @@ class RowSelectTableFooter extends Component {
                 {pageSizeOptions.map((pageSizeOption, i) => <MenuItem value={i} key={i} primaryText={pageSizeOption} />)}
               </Menu>
             </Popover>
-            {`${footerLabels.results}${resultCountText}`}
+            <span className={styles.results}>{`${footerLabels.results}${resultCountText}`}</span>
           </span>
           <span>
             {`${footerLabels.goToPage}`}
