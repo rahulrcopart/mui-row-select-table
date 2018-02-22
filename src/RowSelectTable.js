@@ -38,10 +38,12 @@ export const RowSelectTableRow = ({
   onSelectRow = null,
   isRowSelected = null,
   rowSelectionEnabled = null,
+  selectRowStyle = (rowData) => { }
 }) => {
   const id = getRowId(rowData)
   return (
     <tr
+      style={Object.assign({}, selectRowStyle(rowData))}
       id={id}
       onMouseEnter={() => onMouseEnter(id)}
       onClick={(e) => onClick(e, rowData)}
@@ -218,7 +220,7 @@ class RowSelectTable extends Component {
       results, maxPage, setPage, isLoading, pageSize, currentPage, pageSizeOptions,
       getRowId, columnMetadata, sortColumn, sortAscending, noDataMessage: NoDataMessage,
       rowSelectionEnabled, onSelectAllRows, isAllRowsSelected, onSelectRow, isRowSelected,
-      showFooter, footerLabels,
+      showFooter, footerLabels, selectRowStyle
     } = this.props
     const pagerProps = { maxPage, setPage, resultsPerPage: pageSize, currentPage, pageSizeOptions, footerLabels }
     const searchReturnsResults = !isLoading && results && results.length !== 0 && showFooter
@@ -239,6 +241,8 @@ class RowSelectTable extends Component {
           rowSelectionEnabled={rowSelectionEnabled}
           onSelectRow={onSelectRow}
           isRowSelected={isRowSelected}
+          selectRowStyle={selectRowStyle}
+          
         />
       )
 
@@ -278,6 +282,7 @@ RowSelectTable.propTypes = {
   currentPage: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   sortColumn: PropTypes.string.isRequired,
+  selectRowStyle: PropTypes.func,
   // sortDirection: PropTypes.oneOf([DESCENDING, ASCENDING]).isRequired,
   sortAscending: PropTypes.bool.isRequired,
   getRowId: PropTypes.func.isRequired,
