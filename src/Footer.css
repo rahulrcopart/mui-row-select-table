@@ -75,3 +75,11 @@ font-size: 12px;
 .textField {
   border: 0;
 }
+
+.showing {
+  margin-right: 6px;
+}
+
+.results {
+  margin-left: 8px;
+}
