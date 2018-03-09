@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
-import { TextField, FlatButton, Menu, MenuItem, Popover } from 'material-ui'
+import { TextField, Menu, MenuItem, Popover, RaisedButton } from 'material-ui'
 import range from './range'
 import styles from './Footer.css'
 
@@ -133,11 +133,14 @@ class RowSelectTableFooter extends Component {
         <div className={styles.showResults}>
           <span style={{ marginLeft: '5px', marginRight: '20px' }}>
             <span className={styles.showing}> {`${footerLabels.showing}`} </span>
-            <FlatButton
-              onTouchTap={this.handleTouchTap}
+            <RaisedButton
               label={this.state.resultsPerPage}
-              labelStyle={{ color: 'white' }}
+              labelPosition="before"
               backgroundColor="#1D5AB9"
+              labelStyle={{ color: 'white' }}
+              onTouchTap={this.handleTouchTap}
+              style={{ minWidth: '82px' }}
+              icon={<i className="material-icons" style={{ color: 'white', marginRight: '5px' }}>keyboard_arrow_down</i>}
             />
             <Popover
               open={this.state.popover}
@@ -164,18 +167,18 @@ class RowSelectTableFooter extends Component {
               onChange={this.updateInputValue}
               onKeyUp={this.handleKeyUp}
               type="number"
-              hintText={`${footerLabels.goToPage}`}
-              hintStyle={{ fontSize: '10px' }}
-              style={{ marginLeft: '5px', marginRight: '5px', width: '60px' }}
+              style={{ marginLeft: '5px', marginRight: '5px', width: '60px', height: '36px', border: '1px solid #999', borderRadius: '3px' }}
               underlineFocusStyle={{ width: '50px', borderColor: '#01579b' }}
               min={1}
               max={maxPage}
+              underlineShow={false}
+              inputStyle={{ padding: 5 }}
             />
-            <FlatButton
+            <RaisedButton
               label={`${footerLabels.go}`}
-              labelStyle={{ color: 'white' }}
               backgroundColor="#1D5AB9"
-              type="submit"
+              labelStyle={{ color: 'white' }}
+              style={{ minWidth: '82px' }}
               onClick={() => inputValue !== '' && this.pageChange(Math.min(inputValue, maxPage) - 1)}
             />
           </span>

@@ -46,7 +46,7 @@
 .mainPagerContent {
   width: 100%;
   text-align: center;
-  background-color: #ededed;
+  border-top: 3px solid #CCC;
 }
 
 .mainPagerContent:hover {
@@ -57,7 +57,7 @@
   display: inline-block;
   width: 65%;
   text-align: left;
-   font-size: 12px; 
+   font-size: 12px;
 }
 
 .pagerContent {
