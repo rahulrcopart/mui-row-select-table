@@ -1,6 +1,8 @@
-const camelToSnake = (camelCase) => camelCase.match(/(([A-Z]|^)[^A-Z]*)/g)
-  .map((component) => component.toUpperCase())
-  .join('_')
+const camelToSnake = camelCase =>
+  camelCase
+    .match(/(([A-Z]|^)[^A-Z]*)/g)
+    .map(component => component.toUpperCase())
+    .join('_')
 
 const getInitialState = (baseReducer, initialPageSize, initialSortColumn) => ({
   ...baseReducer(undefined, {}),
@@ -12,7 +14,7 @@ const getInitialState = (baseReducer, initialPageSize, initialSortColumn) => ({
   sortAscending: false,
   filter: '',
   sortColumn: initialSortColumn,
-  pageSize: initialPageSize,
+  pageSize: initialPageSize
 })
 
 const getRowSelectTableReducer = (reducer, camelCaseName, initialPageSize, initialSortColumn) => {
@@ -32,7 +34,7 @@ const getRowSelectTableReducer = (reducer, camelCaseName, initialPageSize, initi
       case LOAD:
         return {
           ...state,
-          isLoading: true,
+          isLoading: true
         }
       case READY: {
         return {
@@ -41,21 +43,21 @@ const getRowSelectTableReducer = (reducer, camelCaseName, initialPageSize, initi
           resultCount: action.resultCount,
           maxPage: action.maxPage,
           isLoading: false,
-          currentPage: action.currentPage,
+          currentPage: action.currentPage
         }
       }
       case FAILED:
         return {
           ...state,
           isLoading: false,
-          error: action.error,
+          error: action.error
         }
       case CLEAR:
         return {
           ...state,
           results: [],
           resultCount: 0,
-          maxPage: 1,
+          maxPage: 1
         }
       case SET_PAGE: {
         const pageSize = action.pageSize || state.pageSize
@@ -63,7 +65,7 @@ const getRowSelectTableReducer = (reducer, camelCaseName, initialPageSize, initi
           ...state,
           currentPage: action.page,
           pageSize,
-          maxPage: Math.ceil(state.resultCount / pageSize),
+          maxPage: Math.ceil(state.resultCount / pageSize)
         }
       }
       case CHANGE_SORT:
@@ -71,12 +73,12 @@ const getRowSelectTableReducer = (reducer, camelCaseName, initialPageSize, initi
           ...state,
           currentPage: 0,
           sortAscending: action.sortAscending,
-          sortColumn: action.sortColumn,
+          sortColumn: action.sortColumn
         }
       case SET_FILTER:
         return {
           ...state,
-          filter: action.filter,
+          filter: action.filter
         }
       default:
         return state

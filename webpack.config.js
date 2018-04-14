@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const { join, resolve } = path
 
@@ -20,26 +21,24 @@ module.exports = {
   externals: {
     react: { commonjs: 'react', commonjs2: 'react' },
     'react-dom': { commonjs: 'react-dom', commonjs2: 'react-dom' },
-    'material-ui': { commonjs: 'material-ui', commonjs2: 'material-ui' },
+    'material-ui': { commonjs: 'material-ui', commonjs2: 'material-ui' }
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js']
   },
   plugins: [
     new webpack.DefinePlugin({
       __DEVELOPMENT__: false,
-      __DEVTOOLS__: false,
+      __DEVTOOLS__: false
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-        'BABEL_ENV': JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production'),
+        BABEL_ENV: JSON.stringify('production')
       }
     }),
-    // new WebpackShellPlugin({
-    //   onBuildEnd: ['npm run docs']
-    // })
-    new CaseSensitivePathsPlugin(),
+    new BundleAnalyzerPlugin(),
+    new CaseSensitivePathsPlugin()
   ],
   module: {
     rules: [
@@ -47,7 +46,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [join(src)],
-        exclude: ['node_modules'],
+        exclude: ['node_modules']
       },
       {
         test: /\.(css|less)/,
@@ -59,31 +58,31 @@ module.exports = {
               importLoaders: true,
               sourceMap: true,
               modules: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]',
-            },
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
           },
           {
             loader: 'less-loader',
             options: {
               strictMath: true,
-              noIeCompat: true,
-            },
-          },
-        ],
+              noIeCompat: true
+            }
+          }
+        ]
       },
       {
         test: /\.(scss|sass)$/,
         use: [
           {
-            loader: 'style-loader', // creates style nodes from JS strings
+            loader: 'style-loader' // creates style nodes from JS strings
           },
           {
-            loader: 'css-loader', // translates CSS into CommonJS
+            loader: 'css-loader' // translates CSS into CommonJS
           },
           {
-            loader: 'sass-loader', // compiles Sass to CSS
-          },
-        ],
+            loader: 'sass-loader' // compiles Sass to CSS
+          }
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -91,14 +90,14 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10000,
-            },
-          },
-        ],
-      },
-    ],
+              limit: 10000
+            }
+          }
+        ]
+      }
+    ]
   },
   node: {
-    fs: 'empty',
+    fs: 'empty'
   }
 }

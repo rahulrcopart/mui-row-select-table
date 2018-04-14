@@ -1,12 +1,13 @@
 export const ASCENDING = 'asc'
 export const DESCENDING = 'desc'
 
-const snakeCaseCaps = (camelCaseString) => camelCaseString
-  .match(/(([A-Z]|^)[^A-Z]*)/g)
-  .map((component) => component.toUpperCase())
-  .join('_')
+const snakeCaseCaps = camelCaseString =>
+  camelCaseString
+    .match(/(([A-Z]|^)[^A-Z]*)/g)
+    .map(component => component.toUpperCase())
+    .join('_')
 
-const getActions = (camelCaseGriddleName) => {
+const getActions = camelCaseGriddleName => {
   const snakeCaseName = snakeCaseCaps(camelCaseGriddleName)
   const LOAD = `${snakeCaseName}_LOAD`
   const READY = `${snakeCaseName}_READY`
@@ -24,28 +25,28 @@ const getActions = (camelCaseGriddleName) => {
       results,
       resultCount,
       maxPage,
-      currentPage,
+      currentPage
     }),
 
     failed: (error, place) => ({ type: FAILED, error: console.error(error) || error, place }), // eslint-disable-line no-console
 
     clear: () => ({
-      type: CLEAR,
+      type: CLEAR
     }),
 
     setPage: (page, pageSize) => ({
       type: SET_PAGE,
       page,
-      pageSize,
+      pageSize
     }),
 
     changeSort: (sortColumn, sortAscending) => ({
       type: CHANGE_SORT,
       sortColumn,
-      sortAscending,
+      sortAscending
     }),
 
-    setFilter: (filter) => ({ type: SET_FILTER, filter }),
+    setFilter: filter => ({ type: SET_FILTER, filter })
   }
 }
 
