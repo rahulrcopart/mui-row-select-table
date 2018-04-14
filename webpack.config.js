@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const { join, resolve } = path
 
@@ -37,7 +36,6 @@ module.exports = {
         BABEL_ENV: JSON.stringify('production')
       }
     }),
-    new BundleAnalyzerPlugin(),
     new CaseSensitivePathsPlugin()
   ],
   module: {
