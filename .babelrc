@@ -1,17 +1,22 @@
 {
-  "presets": ["es2015", "stage-0", "react", "babel-preset-reactTeam"],
+  "presets": ["babel-preset-env", "babel-preset-stage-0", "babel-preset-react"],
+  "plugins": ["babel-plugin-transform-class-properties", "babel-plugin-jsx-control-statements"],
   "env": {
     "development": {
       "plugins": [
-        ["react-transform", {
-          "transforms": [{
-            "transform": "react-transform-hmr",
-            "imports": ["react"],
-            "locals": ["module"]
-          }]
-        }]
+        [
+          "react-transform",
+          {
+            "transforms": [
+              {
+                "transform": "react-transform-hmr",
+                "imports": ["react"],
+                "locals": ["module"]
+              }
+            ]
+          }
+        ]
       ]
     }
-  },
-  "plugins": ["transform-runtime"]
+  }
 }
