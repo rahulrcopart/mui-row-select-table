@@ -1,16 +1,23 @@
 .table {
+  font-family: 'Roboto', sans-serif;
+  border-collapse: collapse;
   width: 100%;
-
   font-size: 12px;
 }
 
 .headerCell {
-  background-color: #0D5DB8;
+  background-color: #0d5db8;
 
   padding: 16px 5px;
 
-  font-weight: bold;
+  letter-spacing: 0.25px;
+  font-size: 14px;
+  font-weight: 500;
   color: white;
+}
+
+.headerCell:not(:last-of-type) {
+  border-right: 1px solid rgb(74, 144, 226);
 }
 
 .sortableColumnHeaderCell {
@@ -18,20 +25,25 @@
 }
 
 .cell {
-  border-bottom: 1px solid #DDD;
-  border-top-color: #DDD;
+  border-bottom: 1px solid #ddd;
+  border-top-color: #ddd;
   padding: 5px;
   text-align: center;
 }
 
 .row {
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   cursor: pointer;
 }
 
+.row:hover {
+  background-color: #d2d7d3;
+  transition: background-color 0.1s;
+}
+
 .selectedRow {
-  background-color: #D2D7D3;
-  transition: background-color .1s;
+  background-color: #d2d7d3;
+  transition: background-color 0.1s;
 }
 
 .circularProgress {
