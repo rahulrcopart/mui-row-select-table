@@ -105,7 +105,13 @@ export default getReducer(componentReducer, 'componentName', 20, '')
 | props.sortColumn      | <code>string</code>                                                                      | The column currently being used to sort the results. (For sort icon in header.)                                                                  |
 | props.sortAscending   | <code>bool</code>                                                                        | True for ascending, false for descending. (For sort icon in header)                                                                              |
 | props.noDataMessage   | <code>function</code>                                                                    | A function that returns a component to be displayed when there is no data available. Should be customised from Parent.                           |
-| props.footerLabels    | <code>Object</code>                                                                      | Object containing footer labels that are displayed in the Footer Section.                                                                        |
+| props.footerLabels    | <code>Object</code>                                                                      | Object containing footer labels that are displayed in the Footer Section.
+| props.rowSelectionEnabled | <code>bool</code> | True if RowSelction is enabled, false if RowSelection is not required |
+| props.selectableRow | <code>function</code> | A function that is used to determined if a rowSelection has to be enabled or disabled. Mandatory when rowSelectionEnabled is true |
+| props.onSelectAllRows | <code>function</code> | A function that is called when selectAllRows checkbox is clicked. Mandatory when rowSelectionEnabled is true |
+| props.onSelectRow | <code>function</code> | A function that is called when a row is selected by clicking checkbox. Mandatory when rowSelectionEnabled is true |
+| props.isRowSelected | <code>function</code> | A function that is called for every row to indicate if the row is selected or not. Mandatory when rowSelectionEnabled is true |
+| props.isAllRowsSelected | <code>bool</code> | True if all rows are selected. False if all rows are not selected. Mandatory when rowSelectionEnabled is true |                                                                        |
 
 getActions('ComponentName') returns to you set of Actions that are component specific and allow you to dispatch unique actions and have multiple RowSelectTables throughout the application.
 
