@@ -38,7 +38,7 @@ export const RowSelectTableRow = ({
   onSelectRow = null,
   isRowSelected = null,
   rowSelectionEnabled = null,
-  selectRowStyle = (rowData) => { },
+  selectRowStyle = (rowData) => { }
 }) => {
   const id = getRowId(rowData)
   return (
