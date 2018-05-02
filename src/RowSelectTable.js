@@ -9,6 +9,9 @@ import { headerCell, sortableColumnHeaderCell, selectedRow, row, cell, table, ci
 export const RowSelectTableSortIcon = ({ direction }) =>
   <span className={cn('fa', `fa-sort-alpha-${direction}`)} style={{ paddingLeft: '.5em' }} />
 
+export const RowSelectTableSortableIcon = () =>
+  <span className="material-icons" style={{ marginLeft: '2px', color: '#fff', fontSize: '20px', verticalAlign: 'middle' }}>swap_vert</span>  
+
 export const RowSelectTableHeader = ({ columnMetadata, sortColumnName, sortDirection, changeSort, onSelectAllRows = null, isAllRowsSelected = null, rowSelectionEnabled = null }) =>
   <thead>
     <tr>
@@ -20,6 +23,7 @@ export const RowSelectTableHeader = ({ columnMetadata, sortColumnName, sortDirec
         {columnMetadata.map(({ headerCellContent, name, sortable }) =>
           <th key={name} name={name} className={cn(headerCell, { [sortableColumnHeaderCell]: sortable })} onClick={() => sortable && changeSort(name)}>
             {(headerCellContent || headerCellContent === '') ? headerCellContent : name}
+            { sortable && sortColumnName !== name && <RowSelectTableSortableIcon /> }
             { sortable && sortColumnName === name && <RowSelectTableSortIcon direction={sortDirection} />}
           </th>
         )}
