@@ -56,7 +56,7 @@ export const RowSelectTableRow = ({
     >
       {rowSelectionEnabled ? (
         <td className={cn(cell)}>
-          <input checked={isRowSelected(rowData)} onClick={(e) => onSelectRow(e, rowData)} type="checkbox" />
+          <input checked={isRowSelected(rowData)} disabled={rowData.selectable === false} onClick={(e) => onSelectRow(e, rowData)} type="checkbox" />
         </td>) : null}
 
         {columnMetadata.map(({ name, display = (x) => x, tdClassName, customComponent: CustomComponent }, i) => (
@@ -246,7 +246,6 @@ class RowSelectTable extends Component {
           onSelectRow={onSelectRow}
           isRowSelected={isRowSelected}
           selectRowStyle={selectRowStyle}
-          
         />
       )
 
