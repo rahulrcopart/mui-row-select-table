@@ -166,7 +166,7 @@ class RowSelectTableFooter extends Component {
               targetOrigin={{ horizontal: 'left', vertical: 'bottom' }}
               onRequestClose={this.handleRequestClose}
             >
-              <Menu onItemTouchTap={this.handleChange}>
+              <Menu onItemClick={this.handleChange}>
                 {pageSizeOptions.map((pageSizeOption, i) => (
                   <MenuItem value={i} key={i} primaryText={pageSizeOption} />
                 ))}
