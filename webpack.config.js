@@ -6,7 +6,7 @@ const { join, resolve } = path
 
 const root = resolve(__dirname)
 const src = join(root, 'src')
-const dest = join(root, 'dist')
+const dest = join(root, '.')
 
 module.exports = {
   devtool: 'source-map',
