@@ -7,21 +7,21 @@ const recursiveForEachEl = (el, fn) => {
   for (const child of el.children) recursiveForEachEl(child, fn)
 }
 
-const mdlComponent = (ComposedComponent) => class extends Component {
-  static displayName = `mdlComponent(${ComposedComponent.displayName || ComposedComponent.name})`
+const mdlComponent = ComposedComponent =>
+  class extends Component {
+    displayName = `mdlComponent(${ComposedComponent.displayName || ComposedComponent.name})`
 
-  componentDidMount() {
-    window.componentHandler && recursiveForEachEl(findDOMNode(this), window.componentHandler.upgradeElement)
+    componentDidMount() {
+      window.componentHandler && recursiveForEachEl(findDOMNode(this), window.componentHandler.upgradeElement)
+    }
+
+    componentWillUnmount() {
+      window.componentHandler && recursiveForEachEl(findDOMNode(this), window.componentHandler.upgradeElement)
+    }
+
+    render() {
+      return <ComposedComponent {...this.props} />
+    }
   }
-
-  componentWillUnmount() {
-    window.componentHandler && recursiveForEachEl(findDOMNode(this), window.componentHandler.upgradeElement)
-  }
-
-
-  render() {
-    return <ComposedComponent {...this.props} />
-  }
-}
 
 export default mdlComponent
